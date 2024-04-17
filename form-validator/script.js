@@ -15,40 +15,32 @@ function success(input){
    input.className = 'form-control is-valid';
 };
 
-function validEmail(email){
+function checkEmail(input){
     const regex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
-    return regex.test(email);
+    if(regex.test(input.value)){
+        success(input);
+    }else{
+        error(input, "Hatalı Bir Mail Adresi")
+    }
   }
+
+function checkRequired(inputs){
+    inputs.forEach(function(input){
+        if(input.value === ''){
+            error(input, `${input.id} zorunludur ! `)
+           }else{
+            success(input);
+           }
+    })
+   
+}
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
-    if(username.value === ''){
-       error(username, 'Kullanıcı Adı Boş Geçilemez');
-    }else{
-        success(username);
-    }
-
-    if(email.value === ''){
-        error(email, "Email Alanı Boş Geçilemez");
-    }else if(!validEmail(email.value)){
-     error(email, "Lütfen Düzgün Bir Mail Adresi Giriniz")   
-    }
-    else{
-        success(email);
-    }
+    
+    checkRequired([username, email, password, repassword]);
+    checkEmail(email);
 
 
-    if(password.value === ''){
-        error(password, "Şifre Alanı Boş Geçilemez");
-    }else{
-        success(password);
-    }
-
-
-    if(repassword.value === ''){
-        error(repassword, "Şifre Alanaı Boş Geçilemez");
-    }else{
-        success(repassword);
-    }
 
 });

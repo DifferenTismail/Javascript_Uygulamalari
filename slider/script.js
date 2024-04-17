@@ -16,6 +16,31 @@ var models = [
     },
 ]
 var index = 1;
-document.querySelector('.card-title').textContent = models[index].name;
-document.querySelector('.card-img-top').setAttribute('src', models[index].image)
-document.querySelector('.card-link').setAttribute('href', models[index].link);
+var slaytCount = models.length;
+
+showSlide(index);
+
+document.querySelector('.fa-chevron-left').addEventListener('click', function(){
+    index--;
+    showSlide(index);
+    console.log(index);
+});
+document.querySelector('.fa-chevron-right').addEventListener('click', function(){
+    index++;
+    showSlide(index);
+    console.log(index);
+});
+function showSlide(i){
+    index = i;
+    if(i < 0){
+        index = slaytCount - 1;
+    }
+    if(i > slaytCount){
+        index = 0;
+    }
+
+
+    document.querySelector('.card-title').textContent = models[index].name;
+    document.querySelector('.card-img-top').setAttribute('src', models[index].image)
+    document.querySelector('.card-link').setAttribute('href', models[index].link);
+}
